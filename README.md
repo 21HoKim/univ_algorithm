@@ -6,10 +6,12 @@
 만약 해당 코드의 input과 output을 검사하고 싶으면 해당 소스 디렉터리에 `./data` 폴더 생성
 `*.in`, `*.out` 의 입출력 데이터를 파일이름과 똑같이 생성하면 됨.
 
-루트 makefile
+[루트 makefile]
+
 `make 4week` : 주차별 폴더 생성, 자동으로 `data`디렉터리와 `makefile`을 생성함.
 
-폴더별 makefile
+[폴더별 makefile]
+
 `make data 4-2` : `4-2.in`, `4-2.out` 파일 자동 생성.
 `make 4-2.c` : 자동으로 컴파일 후 실행파일 실행, 실행파일 이름은 `main`, `.in`과 `.out` 파일 존재시 해당 파일로 입력을 받고 출력 검사.
 
