@@ -1,9 +1,31 @@
-.PHONY: FORCE
+.PHONY: FORCE data
 
 # Make 내부 자기 자신 컴파일 방지용 빈 레시피
 makefile: ;
 Makefile: ;
 
+# =====================================================================
+# [기능 1] 테스트 데이터 스캐폴딩 (make data <파일명>)
+# =====================================================================
+# 명령줄의 첫 번째 단어가 'data'인지 확인
+ifeq ($(firstword $(MAKECMDGOALS)),data)
+  # 두 번째 단어(예: 4-1)를 추출하여 DATA_NAME 변수에 저장
+  DATA_NAME := $(word 2, $(MAKECMDGOALS))
+  # Make가 '4-1'을 타겟으로 착각하고 에러를 내지 않도록 빈 레시피로 동적 타겟 생성
+  $(eval $(DATA_NAME):;@:)
+endif
+
+data:
+	@if [ -z "$(DATA_NAME)" ]; then \
+		echo "❌ 에러: 파일명을 입력하세요. (사용법: make data 4-1)"; \
+	else \
+		touch data/$(DATA_NAME).in data/$(DATA_NAME).out; \
+		echo "✅ 테스트 셋 생성 완료: data/$(DATA_NAME).in, data/$(DATA_NAME).out"; \
+	fi
+
+# =====================================================================
+# [기능 2] 자동 채점 및 AddressSanitizer 컴파일 (make <파일명.c>)
+# =====================================================================
 %.c: FORCE
 	@echo "[1] 컴파일 진행 중: $@ (AddressSanitizer 및 디버깅 심볼 적용)"
 	gcc $@ -o main -Wall -Wextra -g -fsanitize=address
