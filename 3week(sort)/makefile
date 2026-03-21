@@ -1,9 +1,4 @@
 .PHONY: FORCE
-makefile: ;
-Makefile: ;
-
-Makefile
-.PHONY: FORCE
 
 # Make 내부 자기 자신 컴파일 방지용 빈 레시피
 makefile: ;
