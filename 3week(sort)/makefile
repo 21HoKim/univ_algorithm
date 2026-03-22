@@ -39,7 +39,18 @@ data:
 			echo "❌ 결과: 런타임 에러 또는 메모리 결함 발생! (Exit Code: $$STATUS)"; \
 			echo "   -> ⚠️ 위의 AddressSanitizer 에러 리포트를 확인하여 취약점을 패치하세요."; \
 		else \
-			diff -uw data/$*.out data/$*.res > /dev/null && echo "✅ 결과: 정답 (Pass)!" || (echo "❌ 결과: 출력 결과 불일치 (Wrong Answer)!"; diff -uw data/$*.out data/$*.res); \
+			diff -uw data/$*.out data/$*.res > /dev/null && echo "✅ 결과: 정답 (Pass)!" || \
+			(echo "❌ 결과: 출력 결과 불일치 (Wrong Answer)!"; \
+			echo "=================================================="; \
+			echo " 🎯 정답 (Expected)"; \
+			echo "--------------------------------------------------"; \
+			cat data/$*.out; \
+			echo ""; \
+			echo "=================================================="; \
+			echo " 💻 내 출력 (Actual)"; \
+			echo "--------------------------------------------------"; \
+			cat data/$*.res; \
+			echo ""); \
 		fi; \
 		rm -f data/$*.res; \
 		rm -f main; \
